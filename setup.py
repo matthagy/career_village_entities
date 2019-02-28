@@ -32,6 +32,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/matthagy/career_village_entities",
     packages=find_packages(),
+    install_requires=['scalaps'],
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
     classifiers=[
