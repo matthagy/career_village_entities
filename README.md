@@ -21,6 +21,9 @@ from career_village_entities import CareerVillage
 # In the future, we can just load the pickle
 cv = CareerVillage.load('data/cv.p')
 ```
+Note the pickle file around 350 MB and it can take up to 30 seconds to load.
+I therefore recommend using it within a Jupyter notebook so that you only
+have to load it once and can then perform all of your analysis.
 
 The CareerVillage instances contains several collections, one
 for each type of entity in the data set.
@@ -58,7 +61,7 @@ from career_village_entities import CareerVillage
 
 cv = CareerVillage.load('data/cv.p')
 
-def is_question_answered_by_emailed_professional(question):
+def is_question_answered_by_emailed_an_professional(question):
     emailed_professionals = question.emails.map('recipient')
     authors = question.answers.map('author')
     return bool(set(emailed_professionals) & set(authors))
@@ -66,9 +69,9 @@ def is_question_answered_by_emailed_professional(question):
 (cv
  .questions
  .filter(lambda q: q.answers.length > 0) # Only consider questions that were answered
- .group_by(is_question_answered_by_emailed_professional)
+ .map(is_question_answered_by_emailed_an_professional)
+ .value_counts()
  .items()
- .map(lambda x: (x[0], x[1].length))
  .for_each(print))
 ```
 
@@ -77,11 +80,11 @@ The results are
 (True, 10452)
 (False, 12658)
 ```
-Hence, 45.2% of answered questions were answered in repsponse to
+Hence, 45.2% of answered questions were answered in response to
 an email prompt.
 
 
 Very much a work in progress. 
-I'd very match appreciate other people's input, so feel free to submit a PR.
+I'd appreciate other people's input, so feel free to submit a PR.
 
 Contact: Matt Hagy <matthew.hagy@gmail.com>
