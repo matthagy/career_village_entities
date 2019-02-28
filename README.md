@@ -11,10 +11,6 @@ from career_village_entities import CareerVillage
 
 # Load the raw data and save as a pickle file
 CareerVillage.load_raw('input/').save('data/cv.p')
-
-# In the future, we can just load the pickle
-cv = CareerVillage.load('data/cv.p')
-
 ```
 
 After that, we can just load the pickle file.
